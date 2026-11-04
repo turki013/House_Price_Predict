@@ -1,0 +1,217 @@
+{
+  "model_name": "riyadh_house_price_luxury_enhanced_pipeline",
+  "target": "price",
+  "target_transform": "np.log1p",
+  "baseline_epoch": "2015-2016 (smoothed half-years 1_2015 to 2_2016)",
+  "calibration_target": "2026 H1 (1_2026)",
+  "features": [
+    "size",
+    "bedrooms",
+    "bathrooms",
+    "is_villa",
+    "is_apartment",
+    "has_driver_room",
+    "has_maid_room",
+    "is_new",
+    "has_elevator",
+    "has_pool",
+    "has_annex",
+    "has_garage",
+    "has_central_ac",
+    "has_duplex_stairs",
+    "street_width",
+    "extra_apartments",
+    "master_bedrooms",
+    "living_rooms",
+    "has_double_height",
+    "elevator_installed",
+    "elevator_ready",
+    "has_custom_built",
+    "has_spacious_yard",
+    "is_modern",
+    "facade_east",
+    "facade_north",
+    "facade_south",
+    "facade_unknown",
+    "facade_west",
+    "neighborhood_encoded"
+  ],
+  "clean_bounds": {
+    "min_price": 150000,
+    "max_price": 7000000,
+    "min_size": 100,
+    "max_size": 1200
+  },
+  "metrics_comparison": [
+    {
+      "Model": "Dummy (Mean)",
+      "Train_R2": 0.0,
+      "Test_R2": -0.0016,
+      "Gap_pct": 0.16,
+      "RMSE_log": 0.4426,
+      "MAE_SAR": 546910.0,
+      "RMSE_SAR": 874978.0,
+      "MAPE_pct": 34.78
+    },
+    {
+      "Model": "Ridge (alpha=10)",
+      "Train_R2": 0.8197,
+      "Test_R2": 0.8387,
+      "Gap_pct": -1.9,
+      "RMSE_log": 0.1776,
+      "MAE_SAR": 204163.0,
+      "RMSE_SAR": 363681.0,
+      "MAPE_pct": 12.64
+    },
+    {
+      "Model": "Regularized GBR (depth=4)",
+      "Train_R2": 0.8678,
+      "Test_R2": 0.8698,
+      "Gap_pct": -0.2,
+      "RMSE_log": 0.1596,
+      "MAE_SAR": 168810.0,
+      "RMSE_SAR": 315208.0,
+      "MAPE_pct": 10.56
+    },
+    {
+      "Model": "Regularized XGBoost",
+      "Train_R2": 0.8627,
+      "Test_R2": 0.8635,
+      "Gap_pct": -0.08,
+      "RMSE_log": 0.1634,
+      "MAE_SAR": 172324.0,
+      "RMSE_SAR": 326884.0,
+      "MAPE_pct": 10.76
+    }
+  ],
+  "top_features": [
+    {
+      "feature": "neighborhood_encoded",
+      "importance": 0.6242639879141553
+    },
+    {
+      "feature": "size",
+      "importance": 0.30137977610504796
+    },
+    {
+      "feature": "has_elevator",
+      "importance": 0.031086666893705515
+    },
+    {
+      "feature": "extra_apartments",
+      "importance": 0.014606481043056712
+    },
+    {
+      "feature": "has_pool",
+      "importance": 0.005859770714745269
+    },
+    {
+      "feature": "has_duplex_stairs",
+      "importance": 0.00445970872440547
+    },
+    {
+      "feature": "bathrooms",
+      "importance": 0.0044243306233442605
+    },
+    {
+      "feature": "is_apartment",
+      "importance": 0.0021968226216952332
+    },
+    {
+      "feature": "has_custom_built",
+      "importance": 0.001581837599273185
+    },
+    {
+      "feature": "living_rooms",
+      "importance": 0.0014227582867683223
+    },
+    {
+      "feature": "bedrooms",
+      "importance": 0.0013166222046455082
+    },
+    {
+      "feature": "has_driver_room",
+      "importance": 0.0012079254707075841
+    },
+    {
+      "feature": "has_central_ac",
+      "importance": 0.0011908362759702083
+    },
+    {
+      "feature": "street_width",
+      "importance": 0.00114471787267797
+    },
+    {
+      "feature": "master_bedrooms",
+      "importance": 0.000887396429711737
+    },
+    {
+      "feature": "is_modern",
+      "importance": 0.0006005282898417743
+    },
+    {
+      "feature": "has_spacious_yard",
+      "importance": 0.0005341291804830001
+    },
+    {
+      "feature": "facade_west",
+      "importance": 0.0004479650379744949
+    },
+    {
+      "feature": "has_annex",
+      "importance": 0.00039169027180135414
+    },
+    {
+      "feature": "is_new",
+      "importance": 0.0003366243301443964
+    },
+    {
+      "feature": "facade_unknown",
+      "importance": 0.00023760012787590456
+    },
+    {
+      "feature": "facade_east",
+      "importance": 0.00012986532650322095
+    },
+    {
+      "feature": "facade_south",
+      "importance": 6.792779500123605e-05
+    },
+    {
+      "feature": "has_garage",
+      "importance": 6.541171117988815e-05
+    },
+    {
+      "feature": "has_maid_room",
+      "importance": 5.7269192194180265e-05
+    },
+    {
+      "feature": "facade_north",
+      "importance": 4.449029598569053e-05
+    },
+    {
+      "feature": "elevator_ready",
+      "importance": 4.259791676535802e-05
+    },
+    {
+      "feature": "elevator_installed",
+      "importance": 1.4261744339216939e-05
+    },
+    {
+      "feature": "is_villa",
+      "importance": 0.0
+    },
+    {
+      "feature": "has_double_height",
+      "importance": 0.0
+    }
+  ],
+  "benchmarks_used": "C:\\Users\\HUAWEI\\House_price\\aqar_benchmarks_2026.json",
+  "environment": {
+    "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+    "scikit_learn": "1.9.0",
+    "xgboost": "3.4.1",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3"
+  }
+}

@@ -1,0 +1,184 @@
+[
+  {
+    "district": "الصحافة",
+    "size_bucket": "150-275 m²",
+    "avg_price_2026": 3272220.0,
+    "hist_price_2015_16": 1353685.0,
+    "growth_ratio": 2.4173
+  },
+  {
+    "district": "الصحافة",
+    "size_bucket": "275-400 m²",
+    "avg_price_2026": 3624210.0,
+    "hist_price_2015_16": 1744810.0,
+    "growth_ratio": 2.0771
+  },
+  {
+    "district": "الصحافة",
+    "size_bucket": "400-600 m²",
+    "avg_price_2026": 4815840.0,
+    "hist_price_2015_16": 2512682.5,
+    "growth_ratio": 1.9166
+  },
+  {
+    "district": "الصحافة",
+    "size_bucket": "600-900 m²",
+    "avg_price_2026": 6822560.0,
+    "hist_price_2015_16": 3654100.0,
+    "growth_ratio": 1.8671
+  },
+  {
+    "district": "العارض",
+    "size_bucket": "150-275 m²",
+    "avg_price_2026": 2459980.0,
+    "hist_price_2015_16": 1201015.0,
+    "growth_ratio": 2.0483
+  },
+  {
+    "district": "العارض",
+    "size_bucket": "275-400 m²",
+    "avg_price_2026": 3221340.0,
+    "hist_price_2015_16": 1417002.5,
+    "growth_ratio": 2.2733
+  },
+  {
+    "district": "العارض",
+    "size_bucket": "400-600 m²",
+    "avg_price_2026": 4374540.0,
+    "hist_price_2015_16": 1710635.0,
+    "growth_ratio": 2.5573
+  },
+  {
+    "district": "العارض",
+    "size_bucket": "600-900 m²",
+    "avg_price_2026": 4803610.0,
+    "hist_price_2015_16": 2737440.0,
+    "growth_ratio": 1.7548
+  },
+  {
+    "district": "المروج",
+    "size_bucket": "150-275 m²",
+    "avg_price_2026": 3199090.0,
+    "hist_price_2015_16": 1385720.0,
+    "growth_ratio": 2.3086
+  },
+  {
+    "district": "المروج",
+    "size_bucket": "275-400 m²",
+    "avg_price_2026": 3206430.0,
+    "hist_price_2015_16": 1587040.0,
+    "growth_ratio": 2.0204
+  },
+  {
+    "district": "المروج",
+    "size_bucket": "400-600 m²",
+    "avg_price_2026": 5001920.0,
+    "hist_price_2015_16": 2004830.0,
+    "growth_ratio": 2.4949
+  },
+  {
+    "district": "المروج",
+    "size_bucket": "600-900 m²",
+    "avg_price_2026": 5465910.0,
+    "hist_price_2015_16": 2350710.0,
+    "growth_ratio": 2.3252
+  },
+  {
+    "district": "الملقا",
+    "size_bucket": "150-275 m²",
+    "avg_price_2026": 3825850.0,
+    "hist_price_2015_16": 1289212.5,
+    "growth_ratio": 2.9676
+  },
+  {
+    "district": "الملقا",
+    "size_bucket": "275-400 m²",
+    "avg_price_2026": 5017800.0,
+    "hist_price_2015_16": 1927325.0,
+    "growth_ratio": 2.6035
+  },
+  {
+    "district": "الملقا",
+    "size_bucket": "400-600 m²",
+    "avg_price_2026": 7810240.0,
+    "hist_price_2015_16": 2644152.5,
+    "growth_ratio": 2.9538
+  },
+  {
+    "district": "الملقا",
+    "size_bucket": "600-900 m²",
+    "avg_price_2026": 12537000.0,
+    "hist_price_2015_16": 4859310.0,
+    "growth_ratio": 2.58
+  },
+  {
+    "district": "النرجس",
+    "size_bucket": "150-275 m²",
+    "avg_price_2026": 2982070.0,
+    "hist_price_2015_16": 1281172.5,
+    "growth_ratio": 2.3276
+  },
+  {
+    "district": "النرجس",
+    "size_bucket": "275-400 m²",
+    "avg_price_2026": 3687440.0,
+    "hist_price_2015_16": 1592480.0,
+    "growth_ratio": 2.3155
+  },
+  {
+    "district": "النرجس",
+    "size_bucket": "400-600 m²",
+    "avg_price_2026": 5018420.0,
+    "hist_price_2015_16": 2288542.5,
+    "growth_ratio": 2.1928
+  },
+  {
+    "district": "النرجس",
+    "size_bucket": "600-900 m²",
+    "avg_price_2026": 8318750.0,
+    "hist_price_2015_16": 3169266.67,
+    "growth_ratio": 2.6248
+  },
+  {
+    "district": "الورود",
+    "size_bucket": "275-400 m²",
+    "avg_price_2026": 3220840.0,
+    "hist_price_2015_16": 2099090.0,
+    "growth_ratio": 1.5344
+  },
+  {
+    "district": "الورود",
+    "size_bucket": "600-900 m²",
+    "avg_price_2026": 5917340.0,
+    "hist_price_2015_16": 2783245.0,
+    "growth_ratio": 2.1261
+  },
+  {
+    "district": "الياسمين",
+    "size_bucket": "150-275 m²",
+    "avg_price_2026": 3069980.0,
+    "hist_price_2015_16": 1360415.0,
+    "growth_ratio": 2.2566
+  },
+  {
+    "district": "الياسمين",
+    "size_bucket": "275-400 m²",
+    "avg_price_2026": 3654010.0,
+    "hist_price_2015_16": 1880457.5,
+    "growth_ratio": 1.9431
+  },
+  {
+    "district": "الياسمين",
+    "size_bucket": "400-600 m²",
+    "avg_price_2026": 4500600.0,
+    "hist_price_2015_16": 2710977.5,
+    "growth_ratio": 1.6601
+  },
+  {
+    "district": "الياسمين",
+    "size_bucket": "600-900 m²",
+    "avg_price_2026": 8115620.0,
+    "hist_price_2015_16": 4321137.5,
+    "growth_ratio": 1.8781
+  }
+]

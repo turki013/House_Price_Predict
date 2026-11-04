@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.env
+.venv
+env/
+venv/
+
+# Binary model artifacts (do not commit pickle/joblib binaries)
+*.joblib
+*.pkl
+
+# Raw scraped listings and indicator dumps
+aqar_index_full.json
+live_eval_dataset.json
+Aqar_data.csv
