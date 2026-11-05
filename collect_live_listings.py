@@ -14,7 +14,9 @@ HEADERS = {
     "Accept-Language": "ar,en;q=0.9"
 }
 
-OUTPUT_FILE = r"C:\Users\HUAWEI\House_price\live_eval_dataset.json"
+from pathlib import Path
+
+OUTPUT_FILE = Path(__file__).resolve().parent / "live_eval_dataset.json"  # raw scraped data: gitignored
 
 TARGET_DISTRICTS = [
     ("النرجس", "حي-النرجس"),
@@ -69,15 +71,14 @@ def parse_card(card, default_district):
     # 5. Extract bedrooms & bathrooms if available
     # Often listed as numbers in separate pills
     nums = re.findall(r'\|\s*(\d{1,2})\s*\|', norm_text)
-    beds = 4.0
-    baths = 4.0
+    # The card pills are ambiguous (order/meaning varies), so bedrooms/bathrooms are
+    # stored as None unless two pills are present; consumers must impute explicitly.
+    beds = None
+    baths = None
     if len(nums) >= 2:
-        try:
-            cand1, cand2 = float(nums[0]), float(nums[1])
-            if 2 <= cand1 <= 10: beds = cand1
-            if 2 <= cand2 <= 10: baths = cand2
-        except:
-            pass
+        cand1, cand2 = float(nums[0]), float(nums[1])
+        if 2 <= cand1 <= 10: beds = cand1
+        if 2 <= cand2 <= 10: baths = cand2
             
     # 6. Title and description
     title = full_text.split('|')[0].strip()

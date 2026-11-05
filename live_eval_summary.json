@@ -1,0 +1,142 @@
+{
+  "n_listings": 45,
+  "variants": {
+    "beds_baths_imputed_with_training_median": {
+      "metrics": {
+        "1. Aqar average alone": {
+          "bias_median_pct": 7.38,
+          "MAPE_pct": 33.97,
+          "MdAPE_pct": 23.0,
+          "within_15pct": 37.8,
+          "within_25pct": 51.1
+        },
+        "2. Standard model x growth": {
+          "bias_median_pct": 16.88,
+          "MAPE_pct": 34.93,
+          "MdAPE_pct": 24.2,
+          "within_15pct": 35.6,
+          "within_25pct": 51.1
+        },
+        "3. Relative model x 2026 anchor": {
+          "bias_median_pct": 14.56,
+          "MAPE_pct": 35.14,
+          "MdAPE_pct": 23.99,
+          "within_15pct": 44.4,
+          "within_25pct": 51.1
+        }
+      },
+      "paired": [
+        {
+          "a": "M1_aqar_avg",
+          "b": "M2_model_x_growth",
+          "a_closer": 23,
+          "b_closer": 22,
+          "sign_test_p": 1.0,
+          "wilcoxon_p": 1.0,
+          "mean_diff_abs_log_err": -0.0004,
+          "mean_diff_95ci": [
+            -0.0282,
+            0.0261
+          ]
+        },
+        {
+          "a": "M1_aqar_avg",
+          "b": "M3_relative_model",
+          "a_closer": 26,
+          "b_closer": 19,
+          "sign_test_p": 0.371,
+          "wilcoxon_p": 0.902,
+          "mean_diff_abs_log_err": 0.0015,
+          "mean_diff_95ci": [
+            -0.0199,
+            0.0224
+          ]
+        },
+        {
+          "a": "M2_model_x_growth",
+          "b": "M3_relative_model",
+          "a_closer": 19,
+          "b_closer": 26,
+          "sign_test_p": 0.371,
+          "wilcoxon_p": 0.938,
+          "mean_diff_abs_log_err": 0.0018,
+          "mean_diff_95ci": [
+            -0.0095,
+            0.0138
+          ]
+        }
+      ]
+    },
+    "beds_baths_as_collected": {
+      "metrics": {
+        "1. Aqar average alone": {
+          "bias_median_pct": 7.38,
+          "MAPE_pct": 33.97,
+          "MdAPE_pct": 23.0,
+          "within_15pct": 37.8,
+          "within_25pct": 51.1
+        },
+        "2. Standard model x growth": {
+          "bias_median_pct": 16.66,
+          "MAPE_pct": 35.02,
+          "MdAPE_pct": 23.61,
+          "within_15pct": 37.8,
+          "within_25pct": 53.3
+        },
+        "3. Relative model x 2026 anchor": {
+          "bias_median_pct": 13.3,
+          "MAPE_pct": 34.58,
+          "MdAPE_pct": 23.09,
+          "within_15pct": 42.2,
+          "within_25pct": 53.3
+        }
+      },
+      "paired": [
+        {
+          "a": "M1_aqar_avg",
+          "b": "M2_model_x_growth",
+          "a_closer": 22,
+          "b_closer": 23,
+          "sign_test_p": 1.0,
+          "wilcoxon_p": 0.955,
+          "mean_diff_abs_log_err": -0.0012,
+          "mean_diff_95ci": [
+            -0.0289,
+            0.0251
+          ]
+        },
+        {
+          "a": "M1_aqar_avg",
+          "b": "M3_relative_model",
+          "a_closer": 27,
+          "b_closer": 18,
+          "sign_test_p": 0.233,
+          "wilcoxon_p": 0.911,
+          "mean_diff_abs_log_err": 0.0046,
+          "mean_diff_95ci": [
+            -0.0162,
+            0.0248
+          ]
+        },
+        {
+          "a": "M2_model_x_growth",
+          "b": "M3_relative_model",
+          "a_closer": 18,
+          "b_closer": 27,
+          "sign_test_p": 0.233,
+          "wilcoxon_p": 0.453,
+          "mean_diff_abs_log_err": 0.0058,
+          "mean_diff_95ci": [
+            -0.0055,
+            0.018
+          ]
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Primary = first variant (bedrooms/bathrooms were not reliably collected).",
+    "Live-listing features come from the same features.extract_features used in training.",
+    "Three pairwise tests are reported without multiplicity correction."
+  ]
+}

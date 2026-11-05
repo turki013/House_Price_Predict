@@ -1,19 +1,17 @@
 # Python
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
 .ipynb_checkpoints/
 .env
-.venv
-env/
+.venv/
 venv/
 
-# Binary model artifacts (do not commit pickle/joblib binaries)
+# Pickle/joblib bundles: never publish (loading untrusted pickle executes code).
+# Rebuild locally with train_house_price.py / train_relative_model.py.
 *.joblib
 *.pkl
 
-# Raw scraped listings and indicator dumps
+# Raw scraped Aqar data and per-listing outputs stay local
 aqar_index_full.json
 live_eval_dataset.json
-Aqar_data.csv
+local_outputs/
