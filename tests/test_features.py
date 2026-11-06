@@ -14,7 +14,8 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from features import DATA_PATH, FEATURE_COLS, FACADES, clean_district, extract_features  # noqa: E402
+from data import DATA_PATH
+from features import FEATURE_COLS, FACADES, clean_district, extract_features  # noqa: E402
 
 _DIG = {"٠": "0", "١": "1", "٢": "2", "٣": "3", "٤": "4", "٥": "5", "٦": "6", "٧": "7", "٨": "8", "٩": "9"}
 
@@ -103,6 +104,7 @@ def test_live_style_path_matches_legacy_training_features():
         for r in sample.to_dict("records")
     ]
     live_style = pd.DataFrame([extract_features(**i) for i in items], index=sample.index)
+    live_style["street_width"] = live_style["street_width"].fillna(15.0)
     legacy = legacy_features(sample)
     diff = (live_style[FEATURE_COLS].astype(float).values != legacy[FEATURE_COLS].astype(float).values)
     both_nan = np.isnan(live_style[FEATURE_COLS].astype(float).values) & np.isnan(legacy.astype(float).values)

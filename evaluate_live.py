@@ -1,7 +1,7 @@
-"""Paired comparison of three pricing methods on a frozen sample of live listings.
+"""Paired comparison of pricing methods on a frozen sample of live listings.
 
   1. Aqar 2026 district/size average alone
-  2. Standard model (log price) x growth ratio
+  2. Champion model (log price) x growth ratio
   3. Relative model (log price / anchor) x Aqar 2026 anchor
 
 The listings file (live_eval_dataset.json) is raw scraped data and is NOT
@@ -12,6 +12,7 @@ local_outputs/ (gitignored).
 import json
 import sys
 from itertools import combinations
+from pathlib import Path
 
 import joblib
 import numpy as np
@@ -19,25 +20,33 @@ import pandas as pd
 from scipy import stats
 
 from aqar_benchmark_mapper import AqarBenchmarkMapper
-from features import MODEL_INPUT_COLS, ROOT, extract_features, load_training_frame
+from data import split_frame
+from features import extract_features
 
-sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
+ROOT = Path(__file__).resolve().parent
 LISTINGS = ROOT / "live_eval_dataset.json"
 OUT_LOCAL = ROOT / "local_outputs"
-METHODS = {"M1_aqar_avg": "1. Aqar average alone",
-           "M2_model_x_growth": "2. Standard model x growth",
-           "M3_relative_model": "3. Relative model x 2026 anchor"}
+METHODS = {
+    "M1_aqar_avg": "1. Aqar average alone",
+    "M2_model_x_growth": "2. Champion model x growth",
+}
 N_BOOT = 10_000
 
 if not LISTINGS.exists():
-    sys.exit(f"{LISTINGS.name} not found. Run collect_live_listings.py first (data is not in the repo).")
+    print(f"Note: {LISTINGS.name} not present (raw scraped data is gitignored). Skipping live eval run.")
+    sys.exit(0)
 
-std = joblib.load(ROOT / "house_price_pipeline.joblib")["pipe"]
-rel = joblib.load(ROOT / "house_price_relative_pipeline.joblib")["pipe"]
+artifact = joblib.load(ROOT / "house_price_model.joblib")
+std = artifact["pipeline"]
+feature_cols = artifact["feature_cols"]
 mapper = AqarBenchmarkMapper()
-train_frame = load_training_frame(verbose=False)
-BED_MED, BATH_MED = float(train_frame["bedrooms"].median()), float(train_frame["bathrooms"].median())
+
+split = split_frame()
+BED_MED = float(split.train["bedrooms"].median())
+BATH_MED = float(split.train["bathrooms"].median())
 listings = json.loads(LISTINGS.read_text(encoding="utf-8"))
 
 
@@ -46,10 +55,11 @@ def build_inputs(impute_beds_baths: bool) -> pd.DataFrame:
     for it in listings:
         title = it["title"]
         details = it["full_text"].replace(title, "", 1)
-        beds, baths = (BED_MED, BATH_MED) if impute_beds_baths else (it.get("bedrooms"), it.get("bathrooms"))
+        beds = BED_MED if impute_beds_baths else it.get("bedrooms")
+        baths = BATH_MED if impute_beds_baths else it.get("bathrooms")
         rows.append(extract_features(details=details, title=title, size=it["size"],
                                      bedrooms=beds, bathrooms=baths, district=it["district"]))
-    return pd.DataFrame(rows)[MODEL_INPUT_COLS]
+    return pd.DataFrame(rows)[feature_cols]
 
 
 def predictions(X: pd.DataFrame) -> pd.DataFrame:
@@ -58,8 +68,7 @@ def predictions(X: pd.DataFrame) -> pd.DataFrame:
     growth = np.array([b["growth_ratio"] for b in bms])
     return pd.DataFrame({
         "M1_aqar_avg": anchor_2026,
-        "M2_model_x_growth": np.expm1(std.predict(X)) * growth,
-        "M3_relative_model": anchor_2026 * np.exp(rel.predict(X)),
+        "M2_model_x_growth": np.exp(std.predict(X)) * growth,
     })
 
 
@@ -67,7 +76,7 @@ def summarize(pred: pd.Series, actual: np.ndarray) -> dict:
     log_err = np.log(pred.values / actual)
     ape = np.abs(pred.values - actual) / actual
     return {
-        "bias_median_pct": round(float((np.exp(np.median(log_err)) - 1) * 100), 2),  # from median log(pred/actual)
+        "bias_median_pct": round(float((np.exp(np.median(log_err)) - 1) * 100), 2),
         "MAPE_pct": round(float(ape.mean() * 100), 2),
         "MdAPE_pct": round(float(np.median(ape) * 100), 2),
         "within_15pct": round(float((ape <= 0.15).mean() * 100), 1),
@@ -76,7 +85,6 @@ def summarize(pred: pd.Series, actual: np.ndarray) -> dict:
 
 
 def paired(pred: pd.DataFrame, actual: np.ndarray, a: str, b: str) -> dict:
-    """d = |log err_a| - |log err_b|; negative d means method a is closer."""
     d = np.abs(np.log(pred[a].values / actual)) - np.abs(np.log(pred[b].values / actual))
     rng = np.random.default_rng(0)
     boots = np.array([d[rng.integers(0, len(d), len(d))].mean() for _ in range(N_BOOT)])
@@ -95,7 +103,7 @@ summary = {"n_listings": len(listings), "variants": {}}
 records = None
 for variant, impute in (("beds_baths_imputed_with_training_median", True), ("beds_baths_as_collected", False)):
     X = build_inputs(impute)
-    if X[["bedrooms", "bathrooms"]].isna().any().any():  # collected values may be missing -> impute explicitly
+    if X[["bedrooms", "bathrooms"]].isna().any().any():
         X = X.fillna({"bedrooms": BED_MED, "bathrooms": BATH_MED})
     pred = predictions(X)
     block = {"metrics": {METHODS[m]: summarize(pred[m], actual) for m in METHODS},
@@ -110,10 +118,10 @@ for variant, impute in (("beds_baths_imputed_with_training_median", True), ("bed
         print(f"{p['a']} vs {p['b']}: closer {p['a_closer']}/{p['b_closer']}  sign p={p['sign_test_p']}  "
               f"wilcoxon p={p['wilcoxon_p']}  mean d={p['mean_diff_abs_log_err']} CI={p['mean_diff_95ci']}")
 
-summary["notes"] = ["Primary = first variant (bedrooms/bathrooms were not reliably collected).",
-                    "Live-listing features come from the same features.extract_features used in training.",
-                    "Three pairwise tests are reported without multiplicity correction."]
+summary["notes"] = ["Live-listing features come from the same features.extract_features used in training.",
+                    "Champion model prediction scaled by Aqar benchmark growth ratio."]
 (ROOT / "live_eval_summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
 OUT_LOCAL.mkdir(exist_ok=True)
-records.to_json(OUT_LOCAL / "live_eval_records.json", orient="records", force_ascii=False, indent=2)
-print("\nwrote live_eval_summary.json (aggregate) and local_outputs/live_eval_records.json (local only)")
+if records is not None:
+    records.to_json(OUT_LOCAL / "live_eval_records.json", orient="records", force_ascii=False, indent=2)
+print("\nwrote live_eval_summary.json")

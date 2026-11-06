@@ -15,3 +15,6 @@ venv/
 aqar_index_full.json
 live_eval_dataset.json
 local_outputs/
+
+*.parquet
+*.npy

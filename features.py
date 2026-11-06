@@ -1,29 +1,34 @@
 """Single source of truth for feature extraction.
 
-Training, live evaluation and inference all call ``extract_features`` so the
-feature definitions cannot drift apart. Some features are deliberately computed
-on ``details`` only and others on ``details + title``; that routing was the
-original training definition and is preserved here exactly.
+Training, live evaluation, the CLI and the API all call ``extract_features`` so
+the feature definitions cannot drift apart. Some features are deliberately
+computed on ``details`` only and others on ``details + title``; that routing is
+the original training definition and is preserved here (see
+``tests/test_features.py``, which checks it against a frozen copy of the
+original vectorised code).
+
+Changes relative to PR #1 (each one is covered by a test):
+* ``clean_district`` strips the prefix ``حي`` and the suffix ``- الرياض`` with
+  anchored patterns. The old ``str.replace("حي", "")`` also removed the letters
+  inside names, e.g. ``ضاحية نمار`` became ``ضاة نمار``.
+* ``street_width`` is ``NaN`` when the text does not mention it (80% of rows)
+  instead of a silent default of 15 m. Imputation happens inside the model
+  pipeline, with a missing-indicator column.
 """
 from __future__ import annotations
 
 import re
-from pathlib import Path
 
 import numpy as np
 import pandas as pd
-
-ROOT = Path(__file__).resolve().parent
-DATA_PATH = ROOT / "Aqar_data.csv"
-
-PRICE_BOUNDS = (150_000, 7_000_000)
-SIZE_BOUNDS = (100, 1_200)
-DEDUP_KEY = ["location", "size", "price", "bedrooms", "bathrooms"]
 
 _ARABIC_DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩", "0123456789")
 
 FACADES = ("corner", "east", "north", "south", "unknown", "west")
 
+# All features produced by ``extract_features`` (superset). Which of them the
+# model uses is decided in ``modeling.py`` (FEATURE_SETS) and logged as an
+# experiment, not hard-coded here.
 BINARY_FEATURES = [
     "is_villa", "is_apartment", "has_driver_room", "has_maid_room", "is_new",
     "has_elevator", "has_pool", "has_annex", "has_garage", "has_central_ac",
@@ -37,7 +42,7 @@ NUMERIC_FEATURES = [
 FACADE_FEATURES = [f"facade_{f}" for f in FACADES]
 FEATURE_COLS = NUMERIC_FEATURES + BINARY_FEATURES + FACADE_FEATURES
 CATEGORICAL_COL = "neighborhood"
-MODEL_INPUT_COLS = [CATEGORICAL_COL] + FEATURE_COLS
+ALL_INPUT_COLS = [CATEGORICAL_COL] + FEATURE_COLS
 
 _R = {
     "villa": re.compile("فيلا"),
@@ -68,14 +73,21 @@ _R = {
     "f_west": re.compile("غربي|غربيه|غربية"),
 }
 
+_DISTRICT_PREFIX = re.compile(r"^\s*حي\s+")
+_DISTRICT_SUFFIX = re.compile(r"\s*[-،,]?\s*(?:مدينة\s+)?الرياض\s*$")
+
 
 def normalize_text(s: str) -> str:
     return str(s).translate(_ARABIC_DIGITS)
 
 
-def clean_district(location: str) -> str:
-    """'حي النرجس - الرياض' -> 'النرجس' (the training-time rule)."""
-    return str(location).replace("حي", "").replace("- الرياض", "").strip()
+def clean_district(location) -> str:
+    """'حي النرجس - الرياض' -> 'النرجس'; 'حي ضاحية نمار - الرياض' -> 'ضاحية نمار'."""
+    if location is None or (isinstance(location, float) and np.isnan(location)):
+        return ""
+    s = _DISTRICT_SUFFIX.sub("", str(location))
+    s = _DISTRICT_PREFIX.sub("", s)
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def _txt(v) -> str:
@@ -84,11 +96,20 @@ def _txt(v) -> str:
     return str(v)
 
 
+def _num_or_nan(v) -> float:
+    if v is None:
+        return np.nan
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return np.nan
+
+
 def _street_width(t: str) -> float:
     m = _R["street_width"].search(t)
     if m and 8 <= int(m.group(1)) <= 100:
         return float(int(m.group(1)))
-    return 15.0
+    return np.nan  # not mentioned: imputed inside the pipeline (with an indicator)
 
 
 def _extra_apartments(t: str) -> int:
@@ -134,16 +155,16 @@ def _facade(t: str) -> str:
 
 
 def extract_features(*, details, title, size, bedrooms, bathrooms, district) -> dict:
-    """Features for ONE listing. ``bedrooms``/``bathrooms`` may be NaN; the caller
-    decides how to impute (nothing is filled in silently here)."""
+    """Features for ONE listing. ``bedrooms``/``bathrooms``/``street_width`` may be
+    NaN; imputation is the pipeline's job (nothing is filled in silently here)."""
     details, title = _txt(details), _txt(title)
     norm = normalize_text(details + " " + title)
     has = lambda key, text: int(bool(_R[key].search(text)))  # noqa: E731
 
     row = {
         "size": float(size),
-        "bedrooms": float(bedrooms) if bedrooms is not None else np.nan,
-        "bathrooms": float(bathrooms) if bathrooms is not None else np.nan,
+        "bedrooms": _num_or_nan(bedrooms),
+        "bathrooms": _num_or_nan(bathrooms),
         # --- routed on title OR details (raw text) ---
         "is_villa": int(bool(_R["villa"].search(title) or _R["villa"].search(details))),
         "is_apartment": int(bool(_R["apartment"].search(title) or _R["apartment"].search(details))),
@@ -176,27 +197,15 @@ def extract_features(*, details, title, size, bedrooms, bathrooms, district) -> 
     return row
 
 
+RAW_INPUT_COLS = ["details", "listTitle", "size", "bedrooms", "bathrooms", "location"]
+
+
 def build_feature_frame(raw: pd.DataFrame) -> pd.DataFrame:
-    """Row-wise application of ``extract_features`` to a raw Aqar_data frame."""
-    cols = ["details", "listTitle", "size", "bedrooms", "bathrooms", "location"]
+    """Row-wise application of ``extract_features`` to a raw Aqar_data frame
+    (columns ``RAW_INPUT_COLS``). Returns ``ALL_INPUT_COLS`` with the same index."""
     rows = [
         extract_features(details=r["details"], title=r["listTitle"], size=r["size"],
                          bedrooms=r["bedrooms"], bathrooms=r["bathrooms"], district=r["location"])
-        for r in raw[cols].to_dict("records")
+        for r in raw[RAW_INPUT_COLS].to_dict("records")
     ]
-    return pd.DataFrame(rows, index=raw.index)[MODEL_INPUT_COLS]
-
-
-def load_training_frame(path=DATA_PATH, verbose: bool = True) -> pd.DataFrame:
-    """Raw CSV -> de-duplicated, bounded frame with ``price`` + model inputs."""
-    raw = pd.read_csv(path)
-    n0 = len(raw)
-    raw = raw.drop_duplicates(subset=DEDUP_KEY)
-    n1 = len(raw)
-    feats = build_feature_frame(raw)
-    frame = pd.concat([raw[["price"]], feats], axis=1)
-    keep = (frame["price"].between(*PRICE_BOUNDS)) & (frame["size"].between(*SIZE_BOUNDS))
-    frame = frame[keep].copy()
-    if verbose:
-        print(f"dedup: {n0} -> {n1}  |  bounds: {n1} -> {len(frame)}")
-    return frame
+    return pd.DataFrame(rows, index=raw.index)[ALL_INPUT_COLS]

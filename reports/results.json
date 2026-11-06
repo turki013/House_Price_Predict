@@ -1,0 +1,489 @@
+{
+  "cv_results": {
+    "dummy_median": {
+      "n": 5770,
+      "mean_abs_log_error": 0.3278642679011862,
+      "MAPE_pct": 30.336650612804473,
+      "MdAPE_pct": 25.71428571428573,
+      "within_10pct_share": 0.2093587521663778,
+      "within_20pct_share": 0.4031195840554593,
+      "median_bias_pct": -2.220446049250313e-14,
+      "R2_log_price": -0.031827149453616865,
+      "MAE_SAR": 535925.2103986135,
+      "cv_mean_loss": 0.32786426790118617,
+      "cv_std_loss": 0.010299294860392879
+    },
+    "ridge": {
+      "n": 5770,
+      "mean_abs_log_error": 0.1304687753366908,
+      "MAPE_pct": 13.481921586005086,
+      "MdAPE_pct": 9.319127807772743,
+      "within_10pct_share": 0.5292894280762565,
+      "within_20pct_share": 0.8145580589254766,
+      "median_bias_pct": -0.5118096983546039,
+      "R2_log_price": 0.8180912865743512,
+      "MAE_SAR": 219713.27477548068,
+      "cv_mean_loss": 0.1304687753366908,
+      "cv_std_loss": 0.002217629483576695
+    },
+    "gbr_pr1_params": {
+      "n": 5770,
+      "mean_abs_log_error": 0.11628798657252469,
+      "MAPE_pct": 12.05305917606226,
+      "MdAPE_pct": 7.512726843418268,
+      "within_10pct_share": 0.6086655112651647,
+      "within_20pct_share": 0.838994800693241,
+      "median_bias_pct": -0.3222244876731506,
+      "R2_log_price": 0.8388177259025501,
+      "MAE_SAR": 194368.1582950268,
+      "cv_mean_loss": 0.11628798657252468,
+      "cv_std_loss": 0.0014294043625391374
+    },
+    "hgb": {
+      "n": 5770,
+      "mean_abs_log_error": 0.11811038477402251,
+      "MAPE_pct": 12.250388138457344,
+      "MdAPE_pct": 7.37345102802179,
+      "within_10pct_share": 0.6105719237435009,
+      "within_20pct_share": 0.8329289428076256,
+      "median_bias_pct": -0.21525622755740326,
+      "R2_log_price": 0.8309097673155557,
+      "MAE_SAR": 198559.4411382923,
+      "cv_mean_loss": 0.11811038477402251,
+      "cv_std_loss": 0.0017450095486586162
+    },
+    "xgb_pr1_params": {
+      "n": 5770,
+      "mean_abs_log_error": 0.11710178265695687,
+      "MAPE_pct": 12.126891484386801,
+      "MdAPE_pct": 7.60572679567418,
+      "within_10pct_share": 0.6038128249566724,
+      "within_20pct_share": 0.8398613518197574,
+      "median_bias_pct": -0.24851293590746337,
+      "R2_log_price": 0.8373071630689242,
+      "MAE_SAR": 196526.91728299792,
+      "cv_mean_loss": 0.11710178284559983,
+      "cv_std_loss": 0.0015488853865848792
+    },
+    "relative_gbr": {
+      "n": 5770,
+      "mean_abs_log_error": 0.11465334809214917,
+      "MAPE_pct": 11.757434795812683,
+      "MdAPE_pct": 7.690626005020404,
+      "within_10pct_share": 0.6034662045060658,
+      "within_20pct_share": 0.8410745233968804,
+      "median_bias_pct": -0.22028970100220757,
+      "R2_log_price": 0.8485755627232656,
+      "MAE_SAR": 190559.67542686834,
+      "cv_mean_loss": 0.11465334809214915,
+      "cv_std_loss": 0.0020646662657067094
+    },
+    "hgb_tuned": {
+      "n": 5770,
+      "mean_abs_log_error": 0.11509786642700032,
+      "MAPE_pct": 11.93860297261188,
+      "MdAPE_pct": 7.131059577686879,
+      "within_10pct_share": 0.6187175043327556,
+      "within_20pct_share": 0.8377816291161179,
+      "median_bias_pct": -0.15831516764360787,
+      "R2_log_price": 0.8375527298801526,
+      "MAE_SAR": 193112.14778424805,
+      "cv_mean_loss": 0.11509786642700033,
+      "cv_std_loss": 0.0018716763093817662
+    }
+  },
+  "test_results": {
+    "dummy_median": {
+      "n": 1448,
+      "mean_abs_log_error": 0.34038415301115515,
+      "MAPE_pct": 30.557886904296822,
+      "MdAPE_pct": 23.809523809523785,
+      "within_10pct_share": 0.19889502762430938,
+      "within_20pct_share": 0.4157458563535912,
+      "median_bias_pct": -3.70370370370372,
+      "R2_log_price": -0.05032827710344656,
+      "MAE_SAR": 581331.966160221,
+      "MAPE_ci": [
+        29.17,
+        31.91
+      ],
+      "MdAPE_ci": [
+        23.53,
+        27.61
+      ]
+    },
+    "ridge": {
+      "n": 1448,
+      "mean_abs_log_error": 0.13692957468331668,
+      "MAPE_pct": 14.59238242107628,
+      "MdAPE_pct": 9.487138652195423,
+      "within_10pct_share": 0.5262430939226519,
+      "within_20pct_share": 0.7990331491712708,
+      "median_bias_pct": -0.032422766348660925,
+      "R2_log_price": 0.802466653460761,
+      "MAE_SAR": 244069.81599025993,
+      "MAPE_ci": [
+        13.34,
+        16.2
+      ],
+      "MdAPE_ci": [
+        8.86,
+        9.99
+      ]
+    },
+    "gbr_pr1_params": {
+      "n": 1448,
+      "mean_abs_log_error": 0.11890249561711458,
+      "MAPE_pct": 12.40056565113882,
+      "MdAPE_pct": 7.4457161733539,
+      "within_10pct_share": 0.5994475138121547,
+      "within_20pct_share": 0.8314917127071824,
+      "median_bias_pct": 0.003962822761893747,
+      "R2_log_price": 0.8381717326196263,
+      "MAE_SAR": 205794.7868304255,
+      "MAPE_ci": [
+        11.54,
+        13.3
+      ],
+      "MdAPE_ci": [
+        6.98,
+        8.08
+      ]
+    },
+    "relative_gbr": {
+      "n": 1448,
+      "mean_abs_log_error": 0.11428859375783249,
+      "MAPE_pct": 11.738642831013342,
+      "MdAPE_pct": 7.630570347255369,
+      "within_10pct_share": 0.611878453038674,
+      "within_20pct_share": 0.8487569060773481,
+      "median_bias_pct": -0.3245754150719926,
+      "R2_log_price": 0.8539928587745834,
+      "MAE_SAR": 195814.3322964855,
+      "MAPE_ci": [
+        10.92,
+        12.64
+      ],
+      "MdAPE_ci": [
+        7.11,
+        8.22
+      ]
+    },
+    "hgb_tuned": {
+      "n": 1448,
+      "mean_abs_log_error": 0.11814081805331267,
+      "MAPE_pct": 12.341614473946388,
+      "MdAPE_pct": 7.304341053976193,
+      "within_10pct_share": 0.6077348066298343,
+      "within_20pct_share": 0.8314917127071824,
+      "median_bias_pct": -0.03284629400004402,
+      "R2_log_price": 0.8387068126002722,
+      "MAE_SAR": 206153.57888295152,
+      "MAPE_ci": [
+        11.49,
+        13.24
+      ],
+      "MdAPE_ci": [
+        6.71,
+        7.93
+      ]
+    }
+  },
+  "pairwise_test_vs_champion": {
+    "hgb_tuned_vs_dummy_median": {
+      "n": 1448,
+      "wins_a": 1178,
+      "wins_b": 270,
+      "ties": 0,
+      "sign_p": 2.9361741443903793e-135,
+      "wilcoxon_p": 1.0027350851443403e-150,
+      "median_diff": -0.16712911994045226,
+      "ci": [
+        -0.1824176796958966,
+        -0.15205944473008287
+      ],
+      "verdict": "A better"
+    },
+    "hgb_tuned_vs_ridge": {
+      "n": 1448,
+      "wins_a": 891,
+      "wins_b": 557,
+      "ties": 0,
+      "sign_p": 1.4975321453872941e-18,
+      "wilcoxon_p": 2.2277488770681482e-24,
+      "median_diff": -0.014038965633400022,
+      "ci": [
+        -0.017953504869131342,
+        -0.010807321475283509
+      ],
+      "verdict": "A better"
+    },
+    "hgb_tuned_vs_gbr_pr1_params": {
+      "n": 1448,
+      "wins_a": 769,
+      "wins_b": 679,
+      "ties": 0,
+      "sign_p": 0.019311094582686584,
+      "wilcoxon_p": 0.1750145915663378,
+      "median_diff": -0.0015160930777799488,
+      "ci": [
+        -0.0027950249744853935,
+        -0.00021907260959960068
+      ],
+      "verdict": "no clear difference"
+    },
+    "hgb_tuned_vs_relative_gbr": {
+      "n": 1448,
+      "wins_a": 727,
+      "wins_b": 721,
+      "ties": 0,
+      "sign_p": 0.8954670805989176,
+      "wilcoxon_p": 0.4525251175146444,
+      "median_diff": -0.0005101992575022307,
+      "ci": [
+        -0.0032473196976255964,
+        0.002477694464364133
+      ],
+      "verdict": "no clear difference"
+    }
+  },
+  "champion_name": "hgb_tuned",
+  "n_train": 5770,
+  "n_test": 1448,
+  "feature_set": "v2",
+  "feature_count": 28,
+  "slices": [
+    {
+      "slice_category": "size_bucket",
+      "slice_name": "<275 m²",
+      "n": 233,
+      "MAPE_pct": 8.7718316772,
+      "MdAPE_pct": 4.7986831112,
+      "median_bias_pct": -0.4878066924
+    },
+    {
+      "slice_category": "size_bucket",
+      "slice_name": "275-400 m²",
+      "n": 706,
+      "MAPE_pct": 9.8025439354,
+      "MdAPE_pct": 6.1209198121,
+      "median_bias_pct": 0.5517702793
+    },
+    {
+      "slice_category": "size_bucket",
+      "slice_name": "400-600 m²",
+      "n": 349,
+      "MAPE_pct": 13.8919349123,
+      "MdAPE_pct": 9.8571503135,
+      "median_bias_pct": -1.1149261398
+    },
+    {
+      "slice_category": "size_bucket",
+      "slice_name": ">600 m²",
+      "n": 160,
+      "MAPE_pct": 25.362122967,
+      "MdAPE_pct": 18.2163953637,
+      "median_bias_pct": -0.5976073259
+    },
+    {
+      "slice_category": "price_tier",
+      "slice_name": "<1.0M SAR",
+      "n": 327,
+      "MAPE_pct": 15.3722640259,
+      "MdAPE_pct": 6.9017269002,
+      "median_bias_pct": 5.6272902127
+    },
+    {
+      "slice_category": "price_tier",
+      "slice_name": "1.0M-2.0M SAR",
+      "n": 868,
+      "MAPE_pct": 10.3925066797,
+      "MdAPE_pct": 6.1754315338,
+      "median_bias_pct": -0.793891147
+    },
+    {
+      "slice_category": "price_tier",
+      "slice_name": "2.0M-3.5M SAR",
+      "n": 170,
+      "MAPE_pct": 14.4042511175,
+      "MdAPE_pct": 10.8480071151,
+      "median_bias_pct": -5.6523627718
+    },
+    {
+      "slice_category": "price_tier",
+      "slice_name": ">3.5M SAR",
+      "n": 83,
+      "MAPE_pct": 16.5603486006,
+      "MdAPE_pct": 13.7625194819,
+      "median_bias_pct": -10.3740355604
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "الجنادرية",
+      "n": 26,
+      "MAPE_pct": 7.1697653235,
+      "MdAPE_pct": 6.0729547017,
+      "median_bias_pct": 0.1703887656
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "الحزم",
+      "n": 34,
+      "MAPE_pct": 9.3516191617,
+      "MdAPE_pct": 7.0957680408,
+      "median_bias_pct": 1.3827251473
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "الدار البيضاء",
+      "n": 23,
+      "MAPE_pct": 22.4068581608,
+      "MdAPE_pct": 16.0430964083,
+      "median_bias_pct": 4.0537788072
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "الرمال",
+      "n": 138,
+      "MAPE_pct": 6.5459011087,
+      "MdAPE_pct": 5.0482351509,
+      "median_bias_pct": -1.2511697964
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "العارض",
+      "n": 141,
+      "MAPE_pct": 8.0392203877,
+      "MdAPE_pct": 5.6173362522,
+      "median_bias_pct": -0.2300237551
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "القادسية",
+      "n": 33,
+      "MAPE_pct": 5.8144351861,
+      "MdAPE_pct": 4.5432397518,
+      "median_bias_pct": 1.8429257366
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "القيروان",
+      "n": 26,
+      "MAPE_pct": 6.3592781602,
+      "MdAPE_pct": 4.3287612621,
+      "median_bias_pct": 1.8280670864
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "الملقا",
+      "n": 73,
+      "MAPE_pct": 10.6437556517,
+      "MdAPE_pct": 7.9594299982,
+      "median_bias_pct": -0.5091187018
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "المهدية",
+      "n": 53,
+      "MAPE_pct": 12.2711897305,
+      "MdAPE_pct": 11.1579418414,
+      "median_bias_pct": -4.9195167478
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "المونسية",
+      "n": 36,
+      "MAPE_pct": 7.9135332776,
+      "MdAPE_pct": 6.0478813789,
+      "median_bias_pct": -3.3035302511
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "النرجس",
+      "n": 95,
+      "MAPE_pct": 8.6462509585,
+      "MdAPE_pct": 7.0338240809,
+      "median_bias_pct": -0.5263290126
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "الياسمين",
+      "n": 63,
+      "MAPE_pct": 10.2955357256,
+      "MdAPE_pct": 7.6337039355,
+      "median_bias_pct": -0.3706943995
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "حطين",
+      "n": 45,
+      "MAPE_pct": 9.9724073291,
+      "MdAPE_pct": 8.923474707,
+      "median_bias_pct": -7.7521862659
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "طويق",
+      "n": 210,
+      "MAPE_pct": 9.0626920742,
+      "MdAPE_pct": 4.9970289449,
+      "median_bias_pct": 0.323025653
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "ظهرة لبن",
+      "n": 41,
+      "MAPE_pct": 14.8968567413,
+      "MdAPE_pct": 12.1320325885,
+      "median_bias_pct": -3.9818511083
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "ظهرة نمار",
+      "n": 26,
+      "MAPE_pct": 8.3421247535,
+      "MdAPE_pct": 3.9423766237,
+      "median_bias_pct": 0.3566866345
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "عكاظ",
+      "n": 25,
+      "MAPE_pct": 10.6106914707,
+      "MdAPE_pct": 10.2115111589,
+      "median_bias_pct": 5.8443609548
+    },
+    {
+      "slice_category": "district",
+      "slice_name": "قرطبة",
+      "n": 21,
+      "MAPE_pct": 7.6963877777,
+      "MdAPE_pct": 8.1888433404,
+      "median_bias_pct": -0.2090307696
+    },
+    {
+      "slice_category": "sensitivity_ppm_invalid",
+      "slice_name": "excluded_ppm_test_rows",
+      "n": 3,
+      "MAPE_pct": 592.0809133159,
+      "MdAPE_pct": 814.9969971653,
+      "median_bias_pct": 814.9969971653
+    }
+  ],
+  "audit": {
+    "raw_rows": 9974,
+    "exact_duplicates_removed": 2500,
+    "rows_after_dedup": 7474,
+    "bounds_price_min": 150000,
+    "bounds_price_max": 7000000,
+    "bounds_removed": 237,
+    "rows_after_bounds": 7237,
+    "ppm_min": 1000,
+    "ppm_max": 15000,
+    "ppm_train_removed": 16,
+    "ppm_test_removed": 3,
+    "confidence_level": 95.0,
+    "confidence_level_fraction": 0.95,
+    "tier_threshold": 3500000
+  }
+}
