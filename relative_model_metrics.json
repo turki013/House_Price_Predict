@@ -1,0 +1,32 @@
+{
+  "n_train": 5789,
+  "n_test": 1448,
+  "train": {
+    "MAE_SAR": 172037.0,
+    "MAPE_pct": 11.33,
+    "MdAPE_pct": 7.33,
+    "R2_logprice": 0.8637
+  },
+  "test": {
+    "MAE_SAR": 187857.0,
+    "MAPE_pct": 12.84,
+    "MdAPE_pct": 7.77,
+    "R2_logprice": 0.8212,
+    "MAPE_villa_only_pct": 12.84,
+    "n_villa": 1448
+  },
+  "anchor_alone_test": {
+    "MAE_SAR": 635521.0,
+    "MAPE_pct": 53.51,
+    "MdAPE_pct": 41.97,
+    "R2_logprice": -0.1864,
+    "MAPE_villa_only_pct": 53.51,
+    "n_villa": 1448
+  },
+  "direct_anchor_rows_test": {
+    "MAE_SAR": 227759.0,
+    "MAPE_pct": 12.58,
+    "MdAPE_pct": 6.77,
+    "R2_logprice": 0.7836
+  }
+}

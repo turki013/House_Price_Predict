@@ -1,0 +1,129 @@
+{
+  "target": "log1p(price)",
+  "rows_after_dedup_and_bounds": 7237,
+  "n_train": 5789,
+  "n_test": 1448,
+  "features": [
+    "size",
+    "bedrooms",
+    "bathrooms",
+    "street_width",
+    "extra_apartments",
+    "master_bedrooms",
+    "living_rooms",
+    "is_villa",
+    "is_apartment",
+    "has_driver_room",
+    "has_maid_room",
+    "is_new",
+    "has_elevator",
+    "has_pool",
+    "has_annex",
+    "has_garage",
+    "has_central_ac",
+    "has_duplex_stairs",
+    "has_double_height",
+    "elevator_installed",
+    "elevator_ready",
+    "has_custom_built",
+    "has_spacious_yard",
+    "is_modern",
+    "facade_corner",
+    "facade_east",
+    "facade_north",
+    "facade_south",
+    "facade_unknown",
+    "facade_west"
+  ],
+  "metrics": [
+    {
+      "Model": "Dummy (mean)",
+      "Train_R2_log": 0.0,
+      "Test_R2_log": -0.0008,
+      "Gap_R2": 0.0008,
+      "MAE_SAR": 548724.0,
+      "MAPE_pct": 34.82,
+      "MdAPE_pct": 28.46,
+      "MAPE_villa_only_pct": 34.82
+    },
+    {
+      "Model": "Ridge (alpha=10)",
+      "Train_R2_log": 0.8123,
+      "Test_R2_log": 0.7868,
+      "Gap_R2": 0.0255,
+      "MAE_SAR": 223453.0,
+      "MAPE_pct": 14.82,
+      "MdAPE_pct": 10.06,
+      "MAPE_villa_only_pct": 14.82
+    },
+    {
+      "Model": "GBR depth=4",
+      "Train_R2_log": 0.8552,
+      "Test_R2_log": 0.8094,
+      "Gap_R2": 0.0458,
+      "MAE_SAR": 195693.0,
+      "MAPE_pct": 13.25,
+      "MdAPE_pct": 7.6,
+      "MAPE_villa_only_pct": 13.25
+    },
+    {
+      "Model": "XGBoost",
+      "Train_R2_log": 0.8512,
+      "Test_R2_log": 0.808,
+      "Gap_R2": 0.0432,
+      "MAE_SAR": 199199.0,
+      "MAPE_pct": 13.38,
+      "MdAPE_pct": 7.73,
+      "MAPE_villa_only_pct": 13.38
+    }
+  ],
+  "top_features": [
+    {
+      "feature": "neighborhood",
+      "importance": 0.6213166978125313
+    },
+    {
+      "feature": "size",
+      "importance": 0.31135709405519174
+    },
+    {
+      "feature": "has_elevator",
+      "importance": 0.019230975951593267
+    },
+    {
+      "feature": "has_pool",
+      "importance": 0.012866309119987478
+    },
+    {
+      "feature": "extra_apartments",
+      "importance": 0.010632809735497233
+    },
+    {
+      "feature": "has_duplex_stairs",
+      "importance": 0.004472356232807285
+    },
+    {
+      "feature": "bathrooms",
+      "importance": 0.0029178309831822675
+    },
+    {
+      "feature": "has_central_ac",
+      "importance": 0.002471626155786646
+    },
+    {
+      "feature": "is_apartment",
+      "importance": 0.002066091827007211
+    },
+    {
+      "feature": "living_rooms",
+      "importance": 0.0019522064618220075
+    }
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "scikit_learn": "1.9.0",
+    "xgboost": "3.4.1",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3"
+  }
+}

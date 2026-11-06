@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+.venv/
+venv/
+
+# Pickle/joblib bundles: never publish (loading untrusted pickle executes code).
+# Rebuild locally with train_house_price.py / train_relative_model.py.
+*.joblib
+*.pkl
+
+# Raw scraped Aqar data and per-listing outputs stay local
+aqar_index_full.json
+live_eval_dataset.json
+local_outputs/
+
+*.parquet
+*.npy
